@@ -14,8 +14,8 @@ class BicycleSeeder extends Seeder
     {
         for ($i=1; $i <= 100; $i++) {
 
-            factory(Bicycle::class, 1000)->create(['user_id' => $i]);
-            factory(Bicycle::class, 1000)->create(['user_id' => $i]);
+            factory(Bicycle::class, 1)->create(['user_id' => $i]);
+            factory(Bicycle::class, 1)->create(['user_id' => $i]);
         }
     }
 }

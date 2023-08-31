@@ -15,9 +15,10 @@ class BicycleController extends Controller
     public function index()
     {
 
-        $bicycles = Bicycle::with('users')->get();
+        $bicycles = Bicycle::with('user')->get();
         return view('bicycle.list', ['bicycles' => $bicycles]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -26,7 +27,8 @@ class BicycleController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('bicycle.add');
     }
 
     /**
@@ -37,51 +39,65 @@ class BicycleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(
+            $request,
+            Bicycle::$validate
+        );
+        Bicycle::create($request->all());
+        return redirect('bicycles')->with('status', 'Item added successfully!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Bicycle  $bicycle
+     * @param  \App\Bicycle  $Bicycle
      * @return \Illuminate\Http\Response
      */
     public function show(Bicycle $bicycle)
     {
-        //
+
+        return view('bicycle.show', ['bicycle' => $bicycle]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Bicycle  $bicycle
+     * @param  \App\Bicycle  $Bicycle
      * @return \Illuminate\Http\Response
      */
     public function edit(Bicycle $bicycle)
     {
-        //
+
+        return view('bicycle.edit', ['bicycle' => $bicycle]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Bicycle  $bicycle
+     * @param  \App\Bicycle  $Bicycle
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bicycle $bicycle)
+    public function update(Request $request, Bicycle $Bicycle)
     {
-        //
+        $this->validate(
+            $request,
+            Bicycle::$validate
+        );
+        $Bicycle->update($request->all());
+        return redirect('bicycles')->with('status', 'Item edited successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Bicycle  $bicycle
+     * @param  \App\Bicycle  $Bicycle
      * @return \Illuminate\Http\Response
      */
     public function destroy(Bicycle $bicycle)
     {
-        //
+
+        $bicycle->delete($bicycle);
+        return redirect('bicycles')->with('status', 'Item deleted successfully!');
     }
 }

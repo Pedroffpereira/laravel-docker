@@ -15,7 +15,9 @@ class CountryController extends Controller
     public function index()
     {
         $countries = Country::get();
-        return view('country.list', ['countries' => $countries]);
+
+
+        return view('countries.list', ['countries' => $countries]);
     }
 
     /**
@@ -25,7 +27,7 @@ class CountryController extends Controller
      */
     public function create()
     {
-        //
+        return view('countries.add');
     }
 
     /**
@@ -36,7 +38,12 @@ class CountryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(
+            $request,
+            Country::$validate
+        );
+        Country::create($request->all());
+        return redirect('countries')->with('status', 'Item added successfully!');
     }
 
     /**
@@ -47,7 +54,8 @@ class CountryController extends Controller
      */
     public function show(Country $country)
     {
-        //
+
+        return view('countries.show', ['country' => $country]);
     }
 
     /**
@@ -58,7 +66,8 @@ class CountryController extends Controller
      */
     public function edit(Country $country)
     {
-        //
+
+        return view('countries.edit', ['country' => $country]);
     }
 
     /**
@@ -70,7 +79,12 @@ class CountryController extends Controller
      */
     public function update(Request $request, Country $country)
     {
-        //
+        $this->validate(
+            $request,
+            Country::$validate
+        );
+        $country->update($request->all());
+        return redirect('countries')->with('status', 'Item edited successfully!');
     }
 
     /**
@@ -81,6 +95,8 @@ class CountryController extends Controller
      */
     public function destroy(Country $country)
     {
-        //
+
+        $country->delete($country);
+        return redirect('countries')->with('status', 'Item deleted successfully!');
     }
 }

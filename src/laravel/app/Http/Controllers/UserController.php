@@ -14,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('country', 'bicycle')->get();
+        $users = User::with('country')->get();
         return view('user.list', ['users' => $users]);
     }
 
@@ -25,7 +25,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('user.add');
     }
 
     /**
@@ -36,7 +37,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(
+            $request,
+            User::$validate
+        );
+        User::create($request->all());
+        return redirect('users')->with('status', 'Item added successfully!');
     }
 
     /**
@@ -45,9 +51,10 @@ class UserController extends Controller
      * @param  \App\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function show(Country $country)
+    public function show(User $user)
     {
-        //
+
+        return view('user.show', ['user' => $user]);
     }
 
     /**
@@ -56,9 +63,10 @@ class UserController extends Controller
      * @param  \App\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function edit(Country $country)
+    public function edit(User $user)
     {
-        //
+
+        return view('user.edit', ['user' => $user]);
     }
 
     /**
@@ -68,9 +76,14 @@ class UserController extends Controller
      * @param  \App\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Country $country)
+    public function update(Request $request, User $user)
     {
-        //
+        $this->validate(
+            $request,
+            User::$validate
+        );
+        $user->update($request->all());
+        return redirect('users')->with('status', 'Item edited successfully!');
     }
 
     /**
@@ -79,8 +92,9 @@ class UserController extends Controller
      * @param  \App\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Country $country)
+    public function destroy(User $user)
     {
-        //
+        $user->delete($user);
+        return redirect('users')->with('status', 'Item deleted successfully!');
     }
 }
