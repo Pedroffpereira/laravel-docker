@@ -25,7 +25,7 @@
                 {{ $user->birth_date }}
             </td>
             <td>
-                {{ $user->Country->name }}
+                {{ $user->country->name }}
             </td>
             <td>
                 <a href="{{ route('users.show', ['user' => $user]) }}" class="btn btn-success">show</a>

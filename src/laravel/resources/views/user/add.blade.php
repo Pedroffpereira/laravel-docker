@@ -4,7 +4,7 @@
     <div class="container">
         {{ Form::open(['url' => 'users', 'method' => 'post']) }}
 
-        @include('components.users.forms')
+        @include('components.users.forms', ['countries' => $countries])
 
         {{ Form::close() }}
 

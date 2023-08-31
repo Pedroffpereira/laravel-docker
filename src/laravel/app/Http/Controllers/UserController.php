@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Country;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -25,8 +26,8 @@ class UserController extends Controller
      */
     public function create()
     {
-
-        return view('user.add');
+        $countries = Country::get();
+        return view('user.add', ['countries' => $countries]);
     }
 
     /**
@@ -54,7 +55,8 @@ class UserController extends Controller
     public function show(User $user)
     {
 
-        return view('user.show', ['user' => $user]);
+        $countries = Country::get();
+        return view('user.show', ['user' => $user, 'countries' => $countries]);
     }
 
     /**
@@ -66,7 +68,8 @@ class UserController extends Controller
     public function edit(User $user)
     {
 
-        return view('user.edit', ['user' => $user]);
+        $countries = Country::get();
+        return view('user.edit', ['user' => $user, 'countries' => $countries]);
     }
 
     /**

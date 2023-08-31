@@ -48,12 +48,27 @@
                 <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span>
             @enderror
         </div>
-
-    </div>
-
-    @if (!isset($disebled))
-        <div class="col-md-12">
-            <button type="submit" class="btn btn-primary">Submição</button>
+        {{ Form::label('user_id', 'User') }}
+        <div class="input-group has-validation">
+            {{ Form::select(
+                'user_id',
+                $users->pluck('first_name', 'id'),
+                isset($bicycle->user->id) ? $bicycle->user->id : old('user_id'),
+                [
+                    'disabled' => isset($disebled),
+                    'class' => ['form-control ', $errors->has('user_id') == true ? 'is-invalid' : ''],
+                ],
+            ) }}
+            @error('user_id')
+                <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span>
+            @enderror
         </div>
-    @endif
+    </div>
+</div>
+
+@if (!isset($disebled))
+    <div class="col-md-12">
+        <button type="submit" class="btn btn-primary">Submição</button>
+    </div>
+@endif
 </div>

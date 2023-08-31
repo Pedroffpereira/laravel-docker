@@ -38,6 +38,24 @@
         </div>
 
 
+        {{ Form::label('country_id', 'Country') }}
+        <div class="input-group has-validation">
+            {{ Form::select(
+                'country_id',
+                $countries->pluck('name', 'id'),
+                isset($user->country->id) ? $user->country->id : old('country_id'),
+                [
+                    'disabled' => isset($disebled),
+                    'class' => [
+                        'form-control ',
+                        $errors->has('country_id') == true ? 'is-invalid' : '',
+                    ],
+                ],
+            ) }}
+            @error('country_id')
+                <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span>
+            @enderror
+        </div>
 
     </div>
 

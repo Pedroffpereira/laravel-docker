@@ -4,7 +4,7 @@
     <div class="container">
         {{ Form::open(['url' => route('bicycles.update', $bicycle), 'method' => 'put']) }}
 
-        @include('components.bicycles.forms', ['bicycle', $bicycle])
+        @include('components.bicycles.forms', ['bicycle', 'users' => $users, $bicycle])
 
         {{ Form::close() }}
 

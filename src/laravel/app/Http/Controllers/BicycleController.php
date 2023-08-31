@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bicycle;
+use App\User;
 use Illuminate\Http\Request;
 
 class BicycleController extends Controller
@@ -27,8 +28,8 @@ class BicycleController extends Controller
      */
     public function create()
     {
-
-        return view('bicycle.add');
+        $users = User::get();
+        return view('bicycle.add', ['users' => $users]);
     }
 
     /**
@@ -56,7 +57,8 @@ class BicycleController extends Controller
     public function show(Bicycle $bicycle)
     {
 
-        return view('bicycle.show', ['bicycle' => $bicycle]);
+        $users = User::get();
+        return view('bicycle.show', ['bicycle' => $bicycle, 'users' => $users]);
     }
 
     /**
@@ -68,7 +70,8 @@ class BicycleController extends Controller
     public function edit(Bicycle $bicycle)
     {
 
-        return view('bicycle.edit', ['bicycle' => $bicycle]);
+        $users = User::get();
+        return view('bicycle.edit', ['bicycle' => $bicycle, 'users' => $users]);
     }
 
     /**
